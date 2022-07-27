@@ -13,7 +13,7 @@ import { Sorts } from './constants/sorts';
 })
 export class AppComponent implements OnInit, AfterViewInit {
   form!: FormGroup;
-  orders = Orders
+  orders: any = Orders
   sorts = Sorts
   items = [];
   data: boolean = true
