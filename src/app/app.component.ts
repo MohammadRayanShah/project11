@@ -15,7 +15,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   form!: FormGroup;
   orders: any = Orders
   sorts: any = Sorts
-  items = [];
+  items: any = [];
   data: boolean = true
   pageOfItems: Array<any> = [];
   displayedColumns: string[] = ['title'];
