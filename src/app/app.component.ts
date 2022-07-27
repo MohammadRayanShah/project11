@@ -68,8 +68,4 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
 
   }
-
-  onChangePage(pageOfItems: Array<any>) {
-    this.pageOfItems = pageOfItems;
-  }
 }
