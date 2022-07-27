@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { StackExchangeService } from './services/stack-exchange.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table'
+import { Orders } from './constants/order';
+import { Sorts } from './constants/sorts';
 
 @Component({
   selector: 'app-root',
@@ -11,8 +13,8 @@ import { MatTableDataSource } from '@angular/material/table'
 })
 export class AppComponent implements OnInit, AfterViewInit {
   form!: FormGroup;
-  orders = ['desc', 'asc'];
-  sorts = ['activity', 'votes', 'creation', 'relevance'];
+  orders = Orders
+  sorts = Sorts
   items = [];
   data: boolean = true
   pageOfItems: Array<any> = [];
@@ -59,7 +61,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       console.log(unixTimestampTo);
     }
 
-    this.stackExchange.getAll(this.form.value, unixTimestampFrom, unixTimestampTo).subscribe((res) => {
+    this.stackExchange.getAllQuestions(this.form.value, unixTimestampFrom, unixTimestampTo).subscribe((res) => {
       this.pageOfItems = res.items
       this.dataSource = new MatTableDataSource<any>(this.pageOfItems);
       this.dataSource.paginator = this.paginator;

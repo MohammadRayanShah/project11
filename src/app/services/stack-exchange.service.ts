@@ -8,12 +8,12 @@ import { Observable } from 'rxjs';
 
 export class StackExchangeService {
 
-  private searchUrl = 'https://api.stackexchange.com/2.3/search'
+  private url = 'https://api.stackexchange.com/2.3/'
   constructor(
     public httpClient: HttpClient
   ) { }
 
-  getAll(data: any, unixTimestampFrom: any, unixTimestampTo: any): Observable<any> {
+  getAllQuestions(data: any, unixTimestampFrom: any, unixTimestampTo: any): Observable<any> {
     const params = new HttpParams({
       fromObject: {
         page: data.page || '',
@@ -28,7 +28,11 @@ export class StackExchangeService {
         site: data.site,
       }
     });
-    return this.httpClient.get(this.searchUrl + `?${params}`)
+    return this.httpClient.get(this.url + 'search' + `?${params}`)
+  }
+
+  getAceptedAnswers(id: number): Observable<any> {
+    return this.httpClient.get(this.url + 'answers' + `${id}`)
   }
 
 }
