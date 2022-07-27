@@ -14,7 +14,7 @@ import { Sorts } from './constants/sorts';
 export class AppComponent implements OnInit, AfterViewInit {
   form!: FormGroup;
   orders: any = Orders
-  sorts = Sorts
+  sorts: any = Sorts
   items = [];
   data: boolean = true
   pageOfItems: Array<any> = [];
