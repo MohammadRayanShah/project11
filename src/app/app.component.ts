@@ -18,7 +18,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   items: any = [];
   data: boolean = true
   pageOfItems: Array<any> = [];
-  displayedColumns: string[] = ['title'];
+  displayedColumns: string[] = ['index', 'title', 'votes', 'view_count'];
   dataSource = new MatTableDataSource<any>(this.pageOfItems);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   ngAfterViewInit() {
@@ -38,8 +38,8 @@ export class AppComponent implements OnInit, AfterViewInit {
       pagesize: [''],
       fromdate: [''],
       todate: [''],
-      order: [''],
-      sort: [''],
+      order: ['desc'],
+      sort: ['votes'],
       tagged: [''],
       nottagged: [''],
       intitle: [''],
