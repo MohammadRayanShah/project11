@@ -1,12 +1,31 @@
 table {
-    width: 100%;
-  }
+  width: 100%;
+}
 
-  .badgeBox{
-    padding: 3px;
-    display: inline-block;
-  }
+.badgeBox {
+  padding: 3px;
+  display: table-cell;
+  ;
+}
 
-  .filterBox{
-    display: inline;
-  }
+.filterBox {
+  display: inline;
+}
+
+.score_and_viewCount {
+  display: inline-grid;
+  ;
+}
+
+.title_and_tags {
+  padding-left: 40px;
+  display: inline;
+}
+
+.tab_el {
+  display: flex;
+}
+
+.tags {
+  padding-top: 10px;
+}

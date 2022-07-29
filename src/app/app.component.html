@@ -84,17 +84,34 @@
 </div>
 
 <table mat-table [dataSource]="dataSource" class="table">
-  <ng-container matColumnDef="index">
-    <th mat-header-cell *matHeaderCellDef>Index</th>
-    <td mat-cell *matCellDef="let element; let i = index;">{{i+1}}</td>
-  </ng-container>
 
   <ng-container matColumnDef="title">
     <th mat-header-cell *matHeaderCellDef>Title</th>
     <td mat-cell *matCellDef="let element">
-      <a target="_blank" href="{{ element.link }}"> {{ element.title }}</a>
-      <div class="badgeBox" *ngFor="let tag of element.tags">
-        <span class="badge rounded-pill text-bg-primary">{{tag}}</span>
+      <div class="container tab_el">
+
+        <div class="row">
+          <div class="score_and_viewCount">
+            <label class="col-form-label">{{ element.score }} votes</label>
+            <label class="col-form-label">{{ element.view_count }} Views</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="title_and_tags">
+            <div class="title">
+              <a target="_blank" href="{{ element.link }}"> {{ element.title }}</a>
+            </div>
+            <div class="tags">
+              <div class="badgeBox" *ngFor="let tag of element.tags">
+                <button type="button" class="btn btn-primary"
+                  style="--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: 1rem;"
+                  (click)="tagCLick(tag)">
+                  <span class="badge rounded-pill text-bg-primary">{{tag}}</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </td>
   </ng-container>

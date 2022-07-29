@@ -18,7 +18,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   items: any = [];
   data: boolean = true
   pageOfItems: Array<any> = [];
-  displayedColumns: string[] = ['index', 'title', 'votes', 'view_count'];
+  displayedColumns: string[] = ['title', 'votes', 'view_count'];
   dataSource = new MatTableDataSource<any>(this.pageOfItems);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   ngAfterViewInit() {
@@ -68,6 +68,12 @@ export class AppComponent implements OnInit, AfterViewInit {
       if (this.pageOfItems.length == 0) this.data = false
       else this.data = true
     });
-
   }
+
+  tagCLick(tag: any): any {
+    console.log('tag', tag);
+    this.form.controls['intitle'].setValue(tag)
+    this.onSearch()
+  }
+
 }
