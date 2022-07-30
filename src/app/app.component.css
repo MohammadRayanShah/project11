@@ -3,7 +3,7 @@ table {
 }
 
 .badgeBox {
-  padding: 3px;
+  padding: 5px;
   display: table-cell;
   ;
 }
@@ -24,8 +24,22 @@ table {
 
 .tab_el {
   display: flex;
+  padding: 20px;
 }
 
 .tags {
   padding-top: 10px;
+}
+
+.user_Info {
+  display: inline-flex;
+  padding-top: 35px;
+}
+
+.reputation {
+  text-align: right;
+}
+
+.creation_date {
+  text-align: right;
 }
