@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Orders } from './constants/order';
 import { Sorts } from './constants/sorts';
+import { Question } from './interfaces/question';
 
 @Component({
   selector: 'app-root',
@@ -15,10 +16,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   form!: FormGroup;
   orders: any = Orders;
   sorts: any = Sorts;
-  items: any = [];
   data: boolean = true;
-  pageOfItems: Array<any> = [];
+  pageOfItems: Array<Question> = [];
   displayedColumns: string[] = ['title'];
+  question!: Question;
   dataSource = new MatTableDataSource<any>(this.pageOfItems);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   ngAfterViewInit() {
@@ -64,14 +65,14 @@ export class AppComponent implements OnInit, AfterViewInit {
       .getAllQuestions(this.form.value, unixTimestampFrom, unixTimestampTo)
       .subscribe((res) => {
         this.pageOfItems = res.items;
-        this.dataSource = new MatTableDataSource<any>(this.pageOfItems);
+        this.dataSource = new MatTableDataSource<Question>(this.pageOfItems);
         this.dataSource.paginator = this.paginator;
         if (this.pageOfItems.length == 0) this.data = false;
         else this.data = true;
       });
   }
 
-  tagCLick(tag: any): any {
+  tagCLick(tag: string) {
     console.log('tag', tag);
     this.form.controls['intitle'].setValue(tag);
     this.onSearch();

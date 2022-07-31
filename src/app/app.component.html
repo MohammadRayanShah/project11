@@ -92,7 +92,16 @@
         <div class="row">
           <div class="score_and_viewCount">
             <label class="col-form-label">{{ element.score }} votes</label>
-            <label class="col-form-label">{{ element.view_count | number:'1.0-0'}} Views</label>
+            <div *ngIf="element.answer_count>0 && element.answer_count!=1">
+              <label class="input-group-text" id="inputGroup-sizing-default">{{ element.answer_count }} Answers</label>
+            </div>
+            <div *ngIf="element.answer_count==0">
+              <label class="input-group-text" id="inputGroup-sizing-default">0 Answers</label>
+            </div>
+            <div *ngIf="element.answer_count==1">
+              <label class="input-group-text" id="inputGroup-sizing-default">{{ element.answer_count }} Answer</label>
+            </div>
+            <label class="col-form-label">{{ element.view_count | number:'1.0-0'}} views</label>
           </div>
         </div>
         <div class="row">
