@@ -3,36 +3,17 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class StackExchangeService {
+  private url = 'https://api.stackexchange.com/2.3/';
+  constructor(public httpClient: HttpClient) { }
 
-  private url = 'https://api.stackexchange.com/2.3/'
-  constructor(
-    public httpClient: HttpClient
-  ) { }
-
-  getAllQuestions(data: any, unixTimestampFrom: any, unixTimestampTo: any): Observable<any> {
-    const params = new HttpParams({
-      fromObject: {
-        page: data.page || '',
-        pagesize: data.pagesize || '',
-        fromdate: unixTimestampFrom || '',
-        todate: unixTimestampTo || '',
-        order: data.order || '',
-        sort: data.sort || '',
-        tagged: data.tagged || '',
-        nottagged: data.nottagged || '',
-        intitle: data.intitle || '',
-        site: data.site,
-      }
-    });
-    return this.httpClient.get(this.url + 'search' + `?${params}`)
+  getAllQuestions(params: HttpParams): Observable<any> {
+    return this.httpClient.get(this.url + 'search' + `?${params}`);
   }
 
   getAceptedAnswers(id: number): Observable<any> {
-    return this.httpClient.get(this.url + 'answers' + `${id}`)
+    return this.httpClient.get(this.url + 'answers' + `${id}`);
   }
-
 }

@@ -1,7 +1,9 @@
+import { HttpParams } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { Orders } from 'src/app/constants/order';
 import { Sorts } from 'src/app/constants/sorts';
 import { Question } from 'src/app/interfaces/question';
@@ -20,6 +22,8 @@ export class HomeComponent implements OnInit {
   pageOfItems: Array<Question> = [];
   displayedColumns: string[] = ['title'];
   question!: Question;
+  unixTimestampFrom!: number
+  unixTimestampTo!: number
   dataSource = new MatTableDataSource<any>(this.pageOfItems);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   ngAfterViewInit() {
@@ -28,7 +32,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     public stackExchange: StackExchangeService,
-    public fb: FormBuilder
+    public fb: FormBuilder,
+    public router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -48,21 +53,19 @@ export class HomeComponent implements OnInit {
   }
 
   onSearch() {
-    let unixTimestampFrom;
+    this.unixTimestampFrom;
     if (this.form.controls['fromdate'].value) {
       let dateFrom = new Date(this.form.controls['fromdate'].value);
-      unixTimestampFrom = Math.floor(dateFrom.getTime() / 1000);
-      console.log(unixTimestampFrom);
+      this.unixTimestampFrom = Math.floor(dateFrom.getTime() / 1000);
     }
-    let unixTimestampTo;
+    this.unixTimestampTo;
     if (this.form.controls['todate'].value) {
       let dateTo = new Date(this.form.controls['todate'].value);
-      unixTimestampTo = Math.floor(dateTo.getTime() / 1000);
-      console.log(unixTimestampTo);
+      this.unixTimestampTo = Math.floor(dateTo.getTime() / 1000);
     }
-
+    let params = this.getParams(this.form.value, this.unixTimestampFrom, this.unixTimestampTo);
     this.stackExchange
-      .getAllQuestions(this.form.value, unixTimestampFrom, unixTimestampTo)
+      .getAllQuestions(params)
       .subscribe((res) => {
         this.pageOfItems = res.items;
         this.dataSource = new MatTableDataSource<Question>(this.pageOfItems);
@@ -73,8 +76,40 @@ export class HomeComponent implements OnInit {
   }
 
   tagCLick(tag: string) {
-    console.log('tag', tag);
     this.form.controls['intitle'].setValue(tag);
     this.onSearch();
+  }
+
+  getParams(data: any, unixTimestampFrom: any, unixTimestampTo: any, link = 'Nolink') {
+    let newObj: any;
+    newObj = {
+      page: data.page || '',
+      pagesize: data.pagesize || '',
+      fromdate: unixTimestampFrom || '',
+      todate: unixTimestampTo || '',
+      order: data.order || '',
+      sort: data.sort || '',
+      tagged: data.tagged || '',
+      nottagged: data.nottagged || '',
+      intitle: data.intitle || '',
+      site: data.site,
+    };
+
+    Object.keys(newObj).forEach((key) => {
+      if (newObj[key] === '') delete newObj[key];
+    });
+
+    if (link === 'Nolink') {
+      let params = new HttpParams({ fromObject: { ...newObj } });
+      return params
+    }
+    else {
+      return newObj
+    }
+  }
+
+  linkClick(element: Question) {
+    let params = this.getParams(this.form.value, this.unixTimestampFrom, this.unixTimestampTo, 'link');
+    this.router.navigate(['/details/' + element.question_id], { queryParams: { ...params } });
   }
 }
