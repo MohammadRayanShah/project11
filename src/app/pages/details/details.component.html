@@ -1,7 +1,19 @@
 <div class="container">
-<div class="row">
-    <div class="heading">
-        <h1>{{questionData?.title}}</h1>
+    <div class="row upper-row">
+        <div class="heading-score">
+            <h2>{{questionData?.score}}</h2>
+        </div>
+        <div class="heading heading-title">
+            <h1>{{questionData?.title}}</h1>
+        </div>
+        <div>
+            <p><small> asked {{creationDate *1000 | date:'MM/dd/yy h:mm:ss a'}} </small>
+        </div>
+        <div>
+            <p><small> modified {{modifiedDate *1000 | date:'MM/dd/yy h:mm:ss a'}} </small>
+        </div>
+        <div>
+            <p><small> viewed {{questionData?.view_count}} times </small>
+        </div>
     </div>
-</div>
 </div>

@@ -13,10 +13,12 @@ export class DetailsComponent implements OnInit {
   params!: HttpParams;
   questionId!: number;
   questionData!: Question;
+  creationDate!: number
+  modifiedDate!: number
+
   constructor(
     public stackExchangeService: StackExchangeService,
     public route: ActivatedRoute,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -36,6 +38,8 @@ export class DetailsComponent implements OnInit {
       .getQuestion(this.questionId, this.params)
       .subscribe((res) => {
         this.questionData = res.items[0];
+        this.creationDate = this.questionData.creation_date
+        this.modifiedDate = this.questionData.last_edit_date;
       });
   }
 }

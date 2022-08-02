@@ -1,10 +1,10 @@
 export interface Question {
     answer_count: number;
     content_license: string;
-    creation_date: Date;
+    creation_date: number;
     is_answered: boolean;
     last_activity_date: Date;
-    last_edit_date: Date;
+    last_edit_date: number;
     link: string;
     owner: owner;
     question_id: number;
