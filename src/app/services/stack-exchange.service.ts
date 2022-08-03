@@ -13,11 +13,11 @@ export class StackExchangeService {
     return this.httpClient.get(this.url + 'search' + `?${params}`);
   }
 
-  getQuestion(QuestionId: number, params: HttpParams): Observable<any> {
-    return this.httpClient.get(this.url + 'questions/' + QuestionId + `?${params}`)
+  getQuestion(questionId: number, params: HttpParams): Observable<any> {
+    return this.httpClient.get(this.url + 'questions/' + questionId + `?${params}`)
   }
 
-  // getAceptedAnswers(id: number): Observable<any> {
-  //   return this.httpClient.get(this.url + 'answers' + `${id}`);
-  // }
+  getAnswers(questionId: number, params: HttpParams): Observable<any> {
+    return this.httpClient.get(this.url + 'questions/' + `${questionId}` + '/answers' + `?${params}`);
+  }
 }

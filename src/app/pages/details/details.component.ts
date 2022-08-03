@@ -1,5 +1,7 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Question } from 'src/app/interfaces/question';
 import { StackExchangeService } from 'src/app/services/stack-exchange.service';
@@ -15,6 +17,15 @@ export class DetailsComponent implements OnInit {
   questionData!: Question;
   creationDate!: number
   modifiedDate!: number
+  data: boolean = true;
+  pageOfItems: Array<Question> = [];
+  displayedColumns: string[] = ['title'];
+
+  dataSource = new MatTableDataSource<any>(this.pageOfItems);
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
 
   constructor(
     public stackExchangeService: StackExchangeService,
@@ -31,6 +42,7 @@ export class DetailsComponent implements OnInit {
     });
 
     this.getQuestion();
+    this.getAnswers();
   }
 
   getQuestion() {
@@ -41,5 +53,17 @@ export class DetailsComponent implements OnInit {
         this.creationDate = this.questionData.creation_date
         this.modifiedDate = this.questionData.last_edit_date;
       });
+  }
+
+  getAnswers() {
+    this.stackExchangeService.getAnswers(this.questionId, this.params).subscribe((res) => {
+      console.log('res answers', res);
+      this.pageOfItems = res.items;
+      this.dataSource = new MatTableDataSource<Question>(this.pageOfItems);
+      this.dataSource.paginator = this.paginator;
+      if (this.pageOfItems.length == 0) this.data = false;
+      else this.data = true;
+
+    })
   }
 }

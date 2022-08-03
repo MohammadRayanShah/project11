@@ -17,3 +17,74 @@
         </div>
     </div>
 </div>
+
+
+
+<table mat-table [dataSource]="dataSource" class="table">
+
+    <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>Title</th>
+        <td mat-cell *matCellDef="let element">
+            <div class="container tab_el">
+                <label class="col-form-label">{{ element |json }} </label>
+                <!-- <div class="row">
+                     <div class="score_and_viewCount">
+                        <div *ngIf="element.answer_count>0 && element.answer_count!=1">
+                            <label class="input-group-text" id="inputGroup-sizing-default">{{ element.answer_count }}
+                                Answers</label>
+                        </div>
+                        <div *ngIf="element.answer_count==0">
+                            <label class="input-group-text" id="inputGroup-sizing-default">0 Answers</label>
+                        </div>
+                        <div *ngIf="element.answer_count==1">
+                            <label class="input-group-text" id="inputGroup-sizing-default">{{ element.answer_count }}
+                                Answer</label>
+                        </div>
+                        <label class="col-form-label">{{ element.view_count | number:'1.0-0'}} views</label>
+                    </div> 
+                </div> -->
+                <!-- <div class="row">
+                    <div class="title_and_tags">
+                        <div class="title">
+                            <button class='btn-link'target="_blank" (click)="linkClick(element)"> {{ element.title }}</button>
+                        </div>
+                        <div class="tags">
+                            <div class="badgeBox" *ngFor="let tag of element.tags">
+                                <button type="button" class="btn btn-primary"
+                                    style="--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: 1rem;"
+                                    (click)="tagCLick(tag)">
+                                    <span class="badge rounded-pill text-bg-primary">{{tag}}</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- <div class="row">
+                    <div class="user_Info">
+                        <div class="profile_images">
+                            <img src="{{element.owner.profile_image}}" class="img-fluid" width="30" height="30">
+                        </div>
+                        <div class="name">
+                            <p><small>&nbsp;{{ element.owner.display_name}} &nbsp; </small></p>
+                        </div>
+                        <div class="reputation">
+                            <p><strong>{{ element.owner.reputation | number:'1.0-0'}} &nbsp;</strong></p>
+                        </div>
+                        <div class="creation_date">
+                            <p><small> asked &nbsp; {{element.creation_date *1000 | date:'MM/dd/yy h:mm:ss a'}} </small>
+                            </p>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns ; let i = index"></tr>
+</table>
+<div *ngIf="!data">
+    <h1>No data Found</h1>
+</div>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]">
+</mat-paginator>
