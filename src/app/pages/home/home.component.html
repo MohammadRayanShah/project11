@@ -110,7 +110,8 @@
                 <div class="row">
                     <div class="title_and_tags">
                         <div class="title">
-                            <button class='btn-link'target="_blank" (click)="linkClick(element)"> {{ element.title }}</button>
+                            <button class='btn-link' target="_blank" (click)="linkClick(element)"> {{ element.title
+                                }}</button>
                         </div>
                         <div class="tags">
                             <div class="badgeBox" *ngFor="let tag of element.tags">
@@ -129,7 +130,8 @@
                             <img src="{{element.owner.profile_image}}" class="img-fluid" width="30" height="30">
                         </div>
                         <div class="name">
-                            <p><small>&nbsp;{{ element.owner.display_name}} &nbsp; </small></p>
+                            <a class="nameLink" target="_blank" href="{{element.owner.link}}"><small>&nbsp;{{
+                                    element.owner.display_name}} &nbsp; </small></a>
                         </div>
                         <div class="reputation">
                             <p><strong>{{ element.owner.reputation | number:'1.0-0'}} &nbsp;</strong></p>
